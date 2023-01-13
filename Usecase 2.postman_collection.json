@@ -1,0 +1,144 @@
+{
+	"info": {
+		"_postman_id": "844df779-500d-47c4-a4a1-ca62e559f961",
+		"name": "Usecase 2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Sign up",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"employeeId\" : 33333,\r\n    \"firstname\" : \"user3\",\r\n    \"location\" : \"chennai\",\r\n    \"jobTitle\" : \"associate\",\r\n    \"department\" : \"data analysis\",\r\n    \"role\" : [\"report_user\"],\r\n    \"password\" : \"test123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/compensationplan/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"compensationplan",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Signin",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\" : \"user2\",\r\n    \"password\" : \"test123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/compensationplan/signin",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"compensationplan",
+						"signin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get All Users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/compensationplan/getAllUsers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"compensationplan",
+						"getAllUsers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create plan",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"partnerName\" : \"Global Industry\",\r\n    \"compensationPlan\" : \"General Plan\",\r\n    \"calculationMethod\" : \"Usual\",\r\n    \"minimum\" : 5,\r\n    \"maximum\": 1000,\r\n    \"percentage\" : 50,\r\n    \"fromDate\" : 20230109,\r\n    \"toDate\" : 20230125\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/compensationplan/createplan",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"compensationplan",
+						"createplan"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all plan",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/compensationplan/getallplan",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"compensationplan",
+						"getallplan"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get my plans",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}
