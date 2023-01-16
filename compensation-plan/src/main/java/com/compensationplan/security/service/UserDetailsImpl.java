@@ -35,9 +35,11 @@ public class UserDetailsImpl implements UserDetails {
 	private String password;
 
 	private Collection<? extends GrantedAuthority> authorities;
+	
+	private Boolean active;
 
 	public UserDetailsImpl(Long id, Long employeeId, String firstname,String lastname,String location,String jobTitle,
-			String department,String password, Collection<? extends GrantedAuthority> authorities) {
+			String department,String password, Collection<? extends GrantedAuthority> authorities, Boolean active) {
 		this.eId = id;
 		this.employeeId = employeeId;
 		this.firstname = firstname;
@@ -47,6 +49,7 @@ public class UserDetailsImpl implements UserDetails {
 		this.department = department;
 		this.password = password;
 		this.authorities = authorities;
+		this.active = active;
 	}
 
 	public static UserDetailsImpl build(Users user) {
@@ -66,7 +69,8 @@ public class UserDetailsImpl implements UserDetails {
 				user.getJobTitle(),
 				user.getDepartment(),
 				user.getPassword(), 
-				authorities);
+				authorities,
+				user.getActive());
 	}
 
 	@Override
@@ -105,6 +109,10 @@ public class UserDetailsImpl implements UserDetails {
 
 	public String getPassword() {
 		return password;
+	}
+	
+	public Boolean getActive() {
+		return active;
 	}
 
 	@Override

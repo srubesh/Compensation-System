@@ -47,6 +47,7 @@ public class Users {
 	
 	private String password;
 	
+	private Boolean active;
 
 	public Users() {
 		super();
@@ -54,7 +55,7 @@ public class Users {
 	}
 
 	public Users(Long employeeId, String firstname, String lastname, String location, String jobTitle,
-			String department, Role role, String password) {
+			String department, Role role, String password, Boolean active) {
 		super();
 		this.employeeId = employeeId;
 		this.firstname = firstname;
@@ -64,11 +65,12 @@ public class Users {
 		this.department = department;
 		this.role = role;
 		this.password = password;
+		this.active = active;
 	}
 
 	public Users(Long eId, Long employeeId, String firstname, String lastname, String location, String jobTitle,
-			String department, Role role, String password) {
-		this(employeeId,firstname,lastname,location,jobTitle, department, role, password);
+			String department, Role role, String password, Boolean active) {
+		this(employeeId,firstname,lastname,location,jobTitle, department, role, password,active);
 		this.eId = eId;
 	}
 	
@@ -154,13 +156,20 @@ public class Users {
 		this.password = password;
 	}
 	
-	
+
+	public Boolean getActive() {
+		return active;
+	}
+
+	public void setActive(Boolean active) {
+		this.active = active;
+	}
 
 	@Override
 	public String toString() {
 		return "Users [eId=" + eId + ", employeeId=" + employeeId + ", firstname=" + firstname + ", lastname="
 				+ lastname + ", location=" + location + ", jobTitle=" + jobTitle + ", department=" + department
-				+ ", role=" + role + ", password=" + password + "]";
+				+ ", role=" + role + ", password=" + password + ", active=" + active + "]";
 	}
 	
 

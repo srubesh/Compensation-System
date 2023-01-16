@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.compensationplan.entities.CompensationPlan;
-import com.compensationplan.payload.request.CreatePlanRequest;
+import com.compensationplan.entities.Users;
 import com.compensationplan.payload.response.MessageResponse;
 import com.compensationplan.repository.CompensationPlanRepository;
 
@@ -25,6 +25,11 @@ public class CompensationPlanService {
 
 	public List<CompensationPlan> getAllCompensationPlan() {
 		List<CompensationPlan> planList = compensationPlanRepository.findAll();
+		return planList;
+	}
+
+	public List<CompensationPlan> getMyCompensationPlan(Users user) {
+		List<CompensationPlan> planList = compensationPlanRepository.findByCreaterId(user);
 		return planList;
 	}
 

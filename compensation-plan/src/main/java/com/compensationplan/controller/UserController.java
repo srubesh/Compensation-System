@@ -13,7 +13,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -89,7 +91,13 @@ public class UserController {
 						.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
 				role = planUser;
 				break;
-	
+				
+//			case "admin":
+//				Role adminUser = roleRepository.findByName(ERole.ROLE_ADMIN_USER)
+//						.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+//				role = adminUser;
+//				break;
+				
 			default:
 				Role reportUser = roleRepository.findByName(ERole.ROLE_REPORT_USER)
 						.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
@@ -106,6 +114,7 @@ public class UserController {
 		user.setDepartment(signupRequest.getDepartment());
 		user.setRole(role);
 		user.setPassword(encoder.encode(signupRequest.getPassword()));
+		user.setActive(true);
 		
 		return userService.saveUser(user);
 	}
@@ -123,10 +132,14 @@ public class UserController {
 		List<String> role = userDetails.getAuthorities().stream().map(item -> item.getAuthority())
 				.collect(Collectors.toList());
 		
+		if(!userDetails.getActive()) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND).ok(new MessageResponse("User Blocked! Please contact Admin"));
+		}
+		
 
 		JwtResponse response = new JwtResponse(jwt, userDetails.geteId(), userDetails.getUsername(),
 				userDetails.getFirstname(), userDetails.getLastname(),userDetails.getLocation(),userDetails.getJobTitle(),
-				userDetails.getDepartment(),role.get(0));
+				userDetails.getDepartment(),role.get(0),userDetails.getActive());
 
 		return ResponseEntity.ok().body(response);
 	}
@@ -148,6 +161,32 @@ public class UserController {
 		
 		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		
+	}
+	
+	@PutMapping("/blockuser/{employeeId}/{block}")
+	public ResponseEntity<?> blockOrUnblockUser(@PathVariable Long employeeId, @PathVariable String block){
+		Users user = userService.findByEmployeeId(employeeId);
+		//Users savedUser = null;
+		
+		if(user==null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		
+		
+		if (block.equalsIgnoreCase("yes") || block.equalsIgnoreCase("no") ) {
+			if(block.equalsIgnoreCase("yes")) {
+				user.setActive(false);
+				userService.updateUser(user);
+			}
+			if(block.equalsIgnoreCase("no")) {
+				user.setActive(true);
+				userService.updateUser(user);
+			}
+			return ResponseEntity.ok(new MessageResponse("User updated successfully"));
+		}
+		else {
+			return ResponseEntity.ok(new MessageResponse("Not a proper instruction"));
+		}
 	}
 	
 }

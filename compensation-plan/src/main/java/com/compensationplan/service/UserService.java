@@ -25,6 +25,11 @@ public class UserService {
 		userRepo.save(user);
 		return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
 	}
+	
+	public Users updateUser(Users user) {		
+		return userRepo.save(user);
+		//return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+	}
 
 	public List<Users> findAllUsers() {
 		List<Users> user =  userRepo.findAll();

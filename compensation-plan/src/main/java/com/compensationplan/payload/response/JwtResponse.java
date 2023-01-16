@@ -18,9 +18,11 @@ public class JwtResponse {
 	private String department;
 	
 	private String role;
+	
+	private Boolean active;
 
 	public JwtResponse(String accessToken, Long eId, String employeeId, String firstname,String lastname,String location,
-			String jobTitle,String department, String role) {
+			String jobTitle,String department, String role, Boolean active) {
 		this.token = accessToken;
 		this.eId = eId;
 		this.employeeId = employeeId;
@@ -30,6 +32,7 @@ public class JwtResponse {
 		this.jobTitle = jobTitle;
 		this.department = department;
 		this.role = role;
+		this.active = active;
 	}
 
 	public String getAccessToken() {
@@ -110,6 +113,14 @@ public class JwtResponse {
 
 	public void setRoles(String role) {
 		this.role = role;
+	}
+
+	public Boolean getActive() {
+		return active;
+	}
+
+	public void setActive(Boolean active) {
+		this.active = active;
 	}
 
 	

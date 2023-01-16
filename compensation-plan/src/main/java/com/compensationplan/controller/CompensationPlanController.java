@@ -60,9 +60,28 @@ public class CompensationPlanController {
 		return compensationPlanService.saveCompensationPlan(plan);
 	}
 	
-	@GetMapping("/getallplan")
+	@GetMapping("/getallplans")
 	public ResponseEntity<?> getAllCompensationPlan() {
 		List<CompensationPlan> planList = compensationPlanService.getAllCompensationPlan();
+		
+		return ResponseEntity.ok(planList);
+	}
+	
+	@GetMapping("/getmyplans/{employeeId}")
+	public ResponseEntity<?> getMyCompensationPlan(@PathVariable Long employeeId) {
+		
+		Users user = null;
+		if(userService.existByEmployeeId(employeeId)) {
+			user = userService.findByEmployeeId(employeeId);
+			if(!user.getRole().getRoleId().equals("U001")) {
+				return ResponseEntity.badRequest().body(new MessageResponse("This user is not a plan creator"));
+			}
+		}
+		else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		
+		List<CompensationPlan> planList = compensationPlanService.getMyCompensationPlan(user);
 		
 		return ResponseEntity.ok(planList);
 	}
