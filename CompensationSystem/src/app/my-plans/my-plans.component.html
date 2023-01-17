@@ -1,0 +1,77 @@
+<br>
+<!-- <table class="table table-bordered ">
+    <thead class="thead-light">
+        <tr>
+            <th>Partner Name</th>
+            <th>Compensation Plan</th>
+            <th>Calculation Method</th>
+            <th>Minimum</th>
+            <th>Maximum</th>
+            <th>Percentage</th>
+            <th>Valid From</th>
+            <th>Valid To</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let plan of plans">
+            <td>{{plan.partnerName}}</td>
+            <td>{{plan.compensationPlan}}</td>
+            <td>{{plan.calculationMethod}}</td>
+            <td>{{plan.minimum}}</td>
+            <td>{{plan.maximum}}</td>
+            <td>{{plan.percentage}}</td>
+            <td>{{plan.fromDate}}</td>
+            <td>{{plan.toDate}}</td>
+        </tr>
+    </tbody>
+
+</table> -->
+
+<table mat-table [dataSource]="plans" matSort>
+    <ng-container matColumnDef="partnerName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Partner Name </th>
+        <td mat-cell *matCellDef="let plan"> {{plan.partnerName}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="compensationPlan">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Compensation Plan </th>
+        <td mat-cell *matCellDef="let plan"> {{plan.compensationPlan}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="calculationMethod">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Calculation Method </th>
+        <td mat-cell *matCellDef="let plan"> {{plan.calculationMethod}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="minimum">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Minimum </th>
+        <td mat-cell *matCellDef="let plan"> {{plan.minimum}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="maximum">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Maximum </th>
+        <td mat-cell *matCellDef="let plan"> {{plan.maximum}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="percentage">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Percentage </th>
+        <td mat-cell *matCellDef="let plan"> {{plan.percentage}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="fromDate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Valid From </th>
+        <td mat-cell *matCellDef="let plan"> {{plan.fromDate}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="toDate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Valid To </th>
+        <td mat-cell *matCellDef="let plan"> {{plan.toDate}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+    <tr mat-row *matRowDef="let myRowData; columns : columnsToDisplay"></tr>
+</table>
+<mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"
+                showFirstLastButtons
+              aria-label="Select page">
+</mat-paginator>

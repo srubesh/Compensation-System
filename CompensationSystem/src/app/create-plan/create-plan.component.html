@@ -1,0 +1,124 @@
+<br>
+<div class="col-md-12">
+    <div class="card container  d-flex justify-content-center" >
+        <form name="myForm" *ngIf="isLoggedIn" #myForm="ngForm" novalidate (ngSubmit)="myForm.form.valid && createPlan()">
+            <div style="text-align: center;">
+                <h4>Create Compensation Plan</h4>
+            </div>
+            <div class="form-group">
+                <label for="partnerName"> <b>Partner Name</b> </label>
+                <input type="text" class="form-control" name="partnerName" [(ngModel)]="create.partnerName" #partnerName="ngModel"
+                    required />
+                <div class="alert alert-danger" role="alert" *ngIf="partnerName.errors && partnerName.touched">
+                    Partner Name is required!
+                </div>
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="compensationPlan"> <b>Compensation Plan</b> </label>
+                <input type="text" class="form-control" name="compensationPlan" [(ngModel)]="create.compensationPlan"
+                    #compensationPlan="ngModel" required />
+                <div class="alert alert-danger" role="alert" *ngIf="compensationPlan.errors && myForm.submitted">
+                    Compensation Plan is required!
+                </div>
+            </div>
+            <br>
+            <!-- <div class="form-group">
+                <label for="calculationMethod"> <b>Calculation Method</b> </label>
+                <input type="text" class="form-control" name="calculationMethod" [(ngModel)]="create.calculationMethod"
+                    #calculationMethod="ngModel" required />
+                <div class="alert alert-danger" role="alert" *ngIf="calculationMethod.errors && myForm.submitted">
+                    Calculation Method is required!
+                </div>
+            </div> -->
+            <div class="form-group">
+                <label for="calculationMethod"><b>Calculation Method</b> </label>
+                <select class="form-control" name="calculationMethod" [(ngModel)]="create.calculationMethod" required #calculationMethod="ngModel">
+                    <option disabled>Select Method</option>
+                    <option value="volume">Volume</option>
+                    <option value="revenue">Revenue</option>
+                </select>
+                <div class="alert-danger" *ngIf="calculationMethod.errors && myForm.submitted">
+                    <div *ngIf="calculationMethod.errors['required']">Calculation Method is required</div>
+                </div>
+            </div>
+            <br>
+            <div  *ngIf="create.calculationMethod!=''" class="col-md-3 card border border-dark" style=" margin-left: 30px;">
+                <div class="form-group">
+                    <label for="minimum"> <b>Minimum</b> </label>
+                    <input type="number" class="form-control" name="minimum" [(ngModel)]="create.minimum" #minimum="ngModel" 
+                    required/>
+                    <div class="alert alert-danger" role="alert" *ngIf="minimum.errors && myForm.submitted">
+                        Minimum is required!
+                    </div>
+                </div>
+                <br>
+                <div class="form-group">
+                    <label for="maximum"> <b>Maximum</b> </label>
+                    <input type="number" class="form-control" name="maximum" [(ngModel)]="create.maximum" #maximum="ngModel" 
+                    required/>
+                    <div class="alert alert-danger" role="alert" *ngIf="maximum.errors && myForm.submitted">
+                        maximum is required!
+                    </div>
+                </div>
+                <br>
+                <div class="form-group">
+                    <label for="percentage"> <b>Percentage</b> </label>
+                    <input type="number" class="form-control" name="percentage" [(ngModel)]="create.percentage" #percentage="ngModel" 
+                    required min="0" max="100" onKeyUp="if(this.value>100){this.value='100';}else if(this.value<0){this.value='0';}"/>
+                    <div class="alert alert-danger" role="alert" *ngIf="percentage.errors && myForm.submitted">
+                        Percentage is required!
+                    </div>
+                </div>
+                <br>
+            </div>
+            <div class="form-group">
+                <label for="fromDate"> <b>From Date</b> </label>
+                <input type="date" class="form-control" name="fromDate" [(ngModel)]="create.fromDate" 
+                    #fromDate="ngModel" />
+                <div class="alert alert-danger" role="alert" *ngIf="fromDate.errors && myForm.submitted">
+                    From Date is required!
+                </div>
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="toDate"> <b>To Date</b> </label>
+                <input type="date" class="form-control" name="toDate" [(ngModel)]="create.toDate" 
+                    #toDate="ngModel" />
+                <div class="alert alert-danger" role="alert" *ngIf="toDate.errors && myForm.submitted">
+                    Released Date is required!
+                </div>
+            </div>
+            <br>
+            <table class="table table-sm table-bordered">
+                <thead class="thead-light">
+                    <th>Minimum</th>
+                    <th>Maximum</th>
+                    <th>Percentage</th>
+                    <th>Action</th>
+                </thead>
+                <tr>
+                    <td>
+                        <input type="number" class="form-control"  [value]="create.minimum"  disabled/>
+                    </td>
+                    <td>
+                        <input type="number" class="form-control"  [value]="create.maximum"  disabled/>
+                    </td>
+                    <td>
+                        <input type="number" class="form-control"  [value]="create.percentage"  disabled/>
+                    </td>
+                    <td class="d-flex justify-content-center">
+                        <input type="button" class="btn btn-outline-secondary" (click)="delete()" value="Delete" >
+                    </td>
+                </tr>
+            </table>
+            <br>
+            <div class="form-group">
+                <button  class="btn btn-primary btn-block float-end" type="submit" style="margin-left: 40px;">
+                    Create Plan
+                </button>
+            </div>
+        </form>
+        <br>
+    </div>
+</div>
