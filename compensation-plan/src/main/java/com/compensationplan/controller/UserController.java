@@ -61,27 +61,6 @@ public class UserController {
 			return ResponseEntity.badRequest().body(new MessageResponse("Error: EmployeeID already exists!"));
 		}
 		
-//		Set<String> strRoles = signupRequest.getRole();
-//		Set<Role> role = new HashSet<>();
-//		
-//		if (strRoles != null) {
-//			
-//			strRoles.forEach(r -> {
-//				switch (r) {
-//				case "plan_user":
-//					Role authorRole = roleRepository.findByName(ERole.ROLE_PLAN_USER)
-//							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-//					role.add(authorRole);
-//					break;
-//
-//				default:
-//					Role readerRole = roleRepository.findByName(ERole.ROLE_REPORT_USER)
-//							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-//					role.add(readerRole);
-//				}
-//			});
-//		}
-		
 		String strRoles = signupRequest.getRole();
 		Role role;
 
@@ -133,7 +112,8 @@ public class UserController {
 				.collect(Collectors.toList());
 		
 		if(!userDetails.getActive()) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND).ok(new MessageResponse("User Blocked! Please contact Admin"));
+//			return new ResponseEntity<>(HttpStatus.NOT_FOUND).ok(new MessageResponse("User Blocked! Please contact Admin"));
+			return ResponseEntity.badRequest().body(new MessageResponse("User Blocked! Please contact Admin"));
 		}
 		
 
@@ -152,16 +132,16 @@ public class UserController {
 		
 	}
 	
-	@GetMapping("/getuserbyid/{id}")
-	public ResponseEntity<?> getUserById(@RequestParam Long id){
-		Users user = userService.findByEmployeeId(id);
-		
-		if(user!=null)
-			return ResponseEntity.ok(user);
-		
-		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		
-	}
+//	@GetMapping("/getuserbyid/{id}")
+//	public ResponseEntity<?> getUserById(@RequestParam Long id){
+//		Users user = userService.findByEmployeeId(id);
+//		
+//		if(user!=null)
+//			return ResponseEntity.ok(user);
+//		
+//		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//		
+//	}
 	
 	@PutMapping("/blockuser/{employeeId}/{block}")
 	public ResponseEntity<?> blockOrUnblockUser(@PathVariable Long employeeId, @PathVariable String block){
