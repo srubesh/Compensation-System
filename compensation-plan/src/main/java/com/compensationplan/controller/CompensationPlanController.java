@@ -2,6 +2,7 @@ package com.compensationplan.controller;
 
 import java.util.List;
 
+import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.compensationplan.entities.CompensationPlan;
 import com.compensationplan.entities.Users;
+import com.compensationplan.mapper.CompensationPlanMapper;
 import com.compensationplan.payload.request.CreatePlanRequest;
 import com.compensationplan.payload.response.MessageResponse;
 import com.compensationplan.service.CompensationPlanService;
@@ -32,6 +34,8 @@ public class CompensationPlanController {
 	@Autowired
 	UserService userService;
 	
+	private CompensationPlanMapper mapper = Mappers.getMapper(CompensationPlanMapper.class);
+	
 	@PostMapping("/createplan/{userId}")
 	public ResponseEntity<?> saveCompensationPlan(@RequestBody CreatePlanRequest createPlanRequest, @PathVariable Long userId) {
 		
@@ -47,15 +51,17 @@ public class CompensationPlanController {
 		}
 		
 		CompensationPlan plan = new CompensationPlan();
+		plan = mapper.sourceToDestination(createPlanRequest);
 		plan.setCreaterId(user);
-		plan.setPartnerName(createPlanRequest.getPartnerName());
-		plan.setCompensationPlan(createPlanRequest.getCompensationPlan());
-		plan.setCalculationMethod(createPlanRequest.getCalculationMethod());
-		plan.setMinimum(createPlanRequest.getMinimum());
-		plan.setMaximum(createPlanRequest.getMaximum());
-		plan.setPercentage(createPlanRequest.getPercentage());
-		plan.setFromDate(createPlanRequest.getFromDate());
-		plan.setToDate(createPlanRequest.getToDate());
+//		plan.setPartnerName(createPlanRequest.getPartnerName());
+//		plan.setCompensationPlan(createPlanRequest.getCompensationPlan());
+//		plan.setCalculationMethod(createPlanRequest.getCalculationMethod());
+//		plan.setMinimum(createPlanRequest.getMinimum());
+//		plan.setMaximum(createPlanRequest.getMaximum());
+//		plan.setPercentage(createPlanRequest.getPercentage());
+//		plan.setFromDate(createPlanRequest.getFromDate());
+//		plan.setToDate(createPlanRequest.getToDate());
+		 
 		
 		return compensationPlanService.saveCompensationPlan(plan);
 	}
